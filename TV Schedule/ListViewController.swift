@@ -19,7 +19,7 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.title = "Danh sách kênh"
     }
     
     override func viewWillAppear(animated: Bool) {

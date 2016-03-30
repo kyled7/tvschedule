@@ -96,6 +96,7 @@ class Chanel : NSObject, NSCoding {
     }
     
     func fetchSchedule(day: String, month: String, year: String, completionHandler: (NSError?) -> Void) {
+        self.schedule = []
         Alamofire.request(.GET, URLString, parameters : [
             "day" : day,
             "month" : month,
@@ -136,7 +137,6 @@ class Chanel : NSObject, NSCoding {
                     return
                 }
                 
-                self.schedule = []
                 if let bodyTable = tableContents.firstNodeMatchingSelector("tbody") {
                     for row in bodyTable.children {
                         if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above

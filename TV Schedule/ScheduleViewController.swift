@@ -15,6 +15,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var scheduleTableView: UITableView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var favoriteBarButton: UIBarButtonItem!
+    @IBOutlet var dateSC: UISegmentedControl!
     
     let userDefaults = NSUserDefaults.standardUserDefaults()
     var favoriteList: [Chanel]?
@@ -23,10 +24,19 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "dd-MM-yyyy"
+        let todayString = dateFormat.stringFromDate(NSDate())
+        let tomorowString = dateFormat.stringFromDate(NSDate(timeIntervalSinceNow: 1*24*60*60))
+        let twoDaysString = dateFormat.stringFromDate(NSDate(timeIntervalSinceNow: 2*24*60*60))
+        
+        self.dateSC.setTitle(todayString, forSegmentAtIndex: 0)
+        self.dateSC.setTitle(tomorowString, forSegmentAtIndex: 1)
+        self.dateSC.setTitle(twoDaysString, forSegmentAtIndex: 2)
+        
         if let decoded = userDefaults.objectForKey("favorites") as? NSData {
             favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
             if favoriteList!.contains( { $0.channelId == channel?.channelId}) {
-                print("yeah")
                 self.favoriteBarButton.image = UIImage(named: "tv")
             }
         }
@@ -37,40 +47,54 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewWillAppear(animated)
         self.title = channel?.name
         
-        let dayFormat = NSDateFormatter()
-        dayFormat.dateFormat = "dd"
-        let dayString = dayFormat.stringFromDate(NSDate())
-        
-        let monthFormat = NSDateFormatter()
-        monthFormat.dateFormat = "MM"
-        let monthString = monthFormat.stringFromDate(NSDate())
-        
-        let yearFormat = NSDateFormatter()
-        yearFormat.dateFormat = "yyyy"
-        let yearString = yearFormat.stringFromDate(NSDate())
-        
-        channel?.fetchSchedule(dayString, month: monthString, year: yearString) { _ in
-            self.loadingIndicator.hidden = true
-            self.scheduleTableView.reloadData()
-        }
+        self.requestScheduleForDate(NSDate())
     }
 
     @IBAction func favoriteToggle(sender: UIBarButtonItem) {
+        if favoriteList == nil {
+            favoriteList = []
+        }
         if favoriteList!.contains( { $0.name == channel?.name}) {
             print("remove item from favorite list")
             favoriteList?.removeAtIndex(favoriteList!.indexOf( {$0.name == channel?.name} )!)
             self.favoriteBarButton.image = UIImage(named: "favorite")
         } else {
             print("add channel to favorite")
-            if favoriteList == nil {
-                favoriteList = []
-            }
             favoriteList?.append(channel!)
             self.favoriteBarButton.image = UIImage(named: "tv")
         }
         let encodedData = NSKeyedArchiver.archivedDataWithRootObject(favoriteList!)
         userDefaults.setObject(encodedData, forKey: "favorites")
         userDefaults.synchronize()
+    }
+    
+    @IBAction func dateChanged(sender: UISegmentedControl) {
+        self.loadingIndicator.hidden = false
+        channel?.schedule = []
+        self.scheduleTableView.reloadData()
+        
+        let selectedDate = NSDate(timeIntervalSinceNow: Double(sender.selectedSegmentIndex)*24*60*60)
+        self.requestScheduleForDate(selectedDate)
+        
+    }
+    
+    func requestScheduleForDate(date: NSDate) {
+        let dayFormat = NSDateFormatter()
+        dayFormat.dateFormat = "dd"
+        let dayString = dayFormat.stringFromDate(date)
+        
+        let monthFormat = NSDateFormatter()
+        monthFormat.dateFormat = "MM"
+        let monthString = monthFormat.stringFromDate(date)
+        
+        let yearFormat = NSDateFormatter()
+        yearFormat.dateFormat = "yyyy"
+        let yearString = yearFormat.stringFromDate(date)
+        
+        channel?.fetchSchedule(dayString, month: monthString, year: yearString) { _ in
+            self.loadingIndicator.hidden = true
+            self.scheduleTableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
