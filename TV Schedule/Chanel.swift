@@ -7,38 +7,37 @@
 //
 
 import Foundation
-import Alamofire
-import HTMLReader
+import UIKit
 
-let URLString = "http://www.vtvcab.vn/lich-phat-song"
+let namespace = "TV_Schedule"
 
 class Chanel : NSObject, NSCoding {
     var channelId: String!
     var schedule: [Show]?
     var name: String?
-    var source: String?
+    var source: String!
     var image: UIImage?
     
-    init(channelId: String) {
+    init(channelId: String, source: String) {
         self.channelId = channelId
+        self.source = source
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         let id = aDecoder.decodeObjectForKey("channelId") as! String
         let name = aDecoder.decodeObjectForKey("name") as? String
-        let source = aDecoder.decodeObjectForKey("source") as? String
+        let source = aDecoder.decodeObjectForKey("source") as! String
         let image = aDecoder.decodeObjectForKey("image") as? UIImage
-        self.init(channelId: id)
+        self.init(channelId: id, source: source)
         self.name = name
-        self.source = source
         self.image = image
     }
     
     convenience init(dict: NSDictionary) {
         let id = dict.objectForKey("channelId") as! String
-        self.init(channelId: id)
+        let source = dict.objectForKey("source") as! String
+        self.init(channelId: id, source: source)
         self.name = dict.objectForKey("name") as? String
-        self.source = dict.objectForKey("source") as? String
         if let imageName = dict.objectForKey("image") as? String {
             self.image = UIImage(named: imageName)
         }
@@ -52,102 +51,21 @@ class Chanel : NSObject, NSCoding {
         
     }
     
-    private func parseHTMLRow(rowElement: HTMLElement) -> Show? {
-        var name: String?
-        var time: String?
-        var additional: String?
+    func fetchSchedule(date: NSDate, completionHandler: () -> Void) {
+        let channelSourceClass = NSClassFromString(namespace + "." + self.source!) as! NSObject.Type
+        let channelSourceObject = channelSourceClass.init() as! ChannelSource
         
-        //first column: show time
-        if let firstColumn = rowElement.childAtIndex(1) as? HTMLElement {
-            time = firstColumn.textContent
-                .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                .stringByReplacingOccurrencesOfString("\n", withString: "")
+        channelSourceObject.fetchSchedule(self.channelId, date: date) { result in
+            self.schedule = result
+            completionHandler()
         }
         
-        //second column: show name
-        if let secondColumn = rowElement.childAtIndex(3) as? HTMLElement {
-            name = secondColumn.textContent
-                .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                .stringByReplacingOccurrencesOfString("\n", withString: "")
-        }
-        
-        //Third column: show additional info
-        if let thirdColumn = rowElement.childAtIndex(5) as? HTMLElement {
-            additional = thirdColumn.textContent
-                .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                .stringByReplacingOccurrencesOfString("\n", withString: "")
-        }
-        
-        if let name = name, time = time {
-            return Show(name: name, time: time, additional: additional)
-        }
-        
-        return nil
     }
-    
-    private func isScheduleTable(tableElement: HTMLElement) -> Bool {
-        if let firstChild = tableElement.firstNodeMatchingSelector("thead") {
-            let lowerCaseContent = firstChild.textContent.lowercaseString
-            if lowerCaseContent.containsString("thời gian") && lowerCaseContent.containsString("tên chương trình") && lowerCaseContent.containsString("chi tiết") {
-                return true
-            }
-        }
-        return false
-    }
-    
-    func fetchSchedule(day: String, month: String, year: String, completionHandler: (NSError?) -> Void) {
-        self.schedule = []
-        Alamofire.request(.GET, URLString, parameters : [
-            "day" : day,
-            "month" : month,
-            "year" : year,
-            "channel" : self.channelId
-            ])
-            .responseString { responseString in
-                guard responseString.result.error == nil else {
-                    completionHandler(responseString.result.error!)
-                    return
-                    
-                }
-                guard let htmlAsString = responseString.result.value else {
-                    let error = Error.errorWithCode(.StringSerializationFailed, failureReason: "Could not get HTML as String")
-                    completionHandler(error)
-                    return
-                }
-                
-                let doc = HTMLDocument(string: htmlAsString)
-                
-                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector("table")
-                var scheduleTable:HTMLElement?
-                for table in tables {
-                    if let tableElement = table as? HTMLElement {
-                        if self.isScheduleTable(tableElement) {
-                            scheduleTable = tableElement
-                            break
-                        }
-                    }
-                }
-                
-                // make sure we found the table of schedule
-                guard let tableContents = scheduleTable else {
-                    // TODO: create error
-                    let error = Error.errorWithCode(.DataSerializationFailed, failureReason: "Could not find schedule table in HTML document")
-                    completionHandler(error)
-                    return
-                }
-                
-                if let bodyTable = tableContents.firstNodeMatchingSelector("tbody") {
-                    for row in bodyTable.children {
-                        if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above
-                            if let newSchedule = self.parseHTMLRow(rowElement) {
-                                self.schedule?.append(newSchedule)
-                            }
-                        }
-                    }
-                }
-                
-                completionHandler(nil)
-        }
+}
+
+class ChannelSource: NSObject {
+    func fetchSchedule(channelId: String, date: NSDate, completion: (result: [Show]) -> Void) {
+        completion(result: [])
+        print("fetch Schedule by base channel source")
     }
 }

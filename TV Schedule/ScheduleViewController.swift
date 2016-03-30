@@ -79,19 +79,8 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func requestScheduleForDate(date: NSDate) {
-        let dayFormat = NSDateFormatter()
-        dayFormat.dateFormat = "dd"
-        let dayString = dayFormat.stringFromDate(date)
         
-        let monthFormat = NSDateFormatter()
-        monthFormat.dateFormat = "MM"
-        let monthString = monthFormat.stringFromDate(date)
-        
-        let yearFormat = NSDateFormatter()
-        yearFormat.dateFormat = "yyyy"
-        let yearString = yearFormat.stringFromDate(date)
-        
-        channel?.fetchSchedule(dayString, month: monthString, year: yearString) { _ in
+        channel?.fetchSchedule(date) { _ in
             self.loadingIndicator.hidden = true
             self.scheduleTableView.reloadData()
         }

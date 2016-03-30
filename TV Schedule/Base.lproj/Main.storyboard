@@ -60,7 +60,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="laW-rr-gsH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="laW-rr-gsH">
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Xc4-Ek-k8d">
@@ -349,6 +349,6 @@
         <image name="tv" width="29" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lGs-aY-AYK"/>
+        <segue reference="KR5-GV-Nin"/>
     </inferredMetricsTieBreakers>
 </document>

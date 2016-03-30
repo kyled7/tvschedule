@@ -4,13 +4,23 @@
 <array>
 	<dict>
 		<key>name</key>
+		<string>VTV1</string>
+		<key>image</key>
+		<string>vtv1</string>
+		<key>channelId</key>
+		<string>0</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
 		<string>VTVCab 1 - Giải Trí TV</string>
 		<key>image</key>
 		<string>vtvcab1</string>
 		<key>channelId</key>
 		<string>224</string>
 		<key>source</key>
-		<string>vtvcab</string>
+		<string>Vtvcab</string>
 	</dict>
 	<dict>
 		<key>name</key>
@@ -20,7 +30,7 @@
 		<key>channelId</key>
 		<string>4077</string>
 		<key>source</key>
-		<string>vtvcab</string>
+		<string>Vtvcab</string>
 	</dict>
 </array>
 </plist>
