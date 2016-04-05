@@ -34,13 +34,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         self.dateSC.setTitle(tomorowString, forSegmentAtIndex: 1)
         self.dateSC.setTitle(twoDaysString, forSegmentAtIndex: 2)
         
-        if let decoded = userDefaults.objectForKey("favorites") as? NSData {
-            favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
-            if favoriteList!.contains( { $0.channelId == channel?.channelId}) {
-                self.favoriteBarButton.image = UIImage(named: "tv")
-            }
-        }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,6 +41,18 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         self.title = channel?.name
         
         self.requestScheduleForDate(NSDate())
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let decoded = userDefaults.objectForKey("favorites") as? NSData {
+            favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
+            if favoriteList!.contains( { $0.channelId == channel?.channelId}) {
+                self.favoriteBarButton.image = UIImage(named: "tv")
+            } else {
+                self.favoriteBarButton.image = UIImage(named: "favorite")
+            }
+        }
     }
 
     @IBAction func favoriteToggle(sender: UIBarButtonItem) {

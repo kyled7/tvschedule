@@ -69,5 +69,22 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
         scheduleVC.channel = listFavorite![indexPath.row]
         self.showViewController(scheduleVC, sender: nil)
     }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+        return "Bỏ yêu thích"
+    }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            listFavorite?.removeAtIndex(indexPath.row)
+            self.favoriteTableView.reloadData()
+            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(listFavorite!)
+            userDefaults.setObject(encodedData, forKey: "favorites")
+            userDefaults.synchronize()
+        }
+        
+    }
 
 }
