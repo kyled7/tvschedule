@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import HTMLReader
+import Haneke
 
 class Vtv: ChannelSource {
     let UrlString = "http://vtv.vn/lich-phat-song"
@@ -16,33 +17,24 @@ class Vtv: ChannelSource {
     override func fetchSchedule(channelId: String, date: NSDate, completion: (result: [Show]) -> Void) {
         var schedule: [Show] = []
         
-        let requestHeader = ["Content-Type:" : "text/html; charset=utf-8"]
-        
-        Alamofire.request(.GET, requestUrlForDate(date), headers: requestHeader)
-            .responseString { responseString in
-                guard responseString.result.error == nil else {
-                    completion(result: schedule)
-                    return
-                }
-                guard let htmlAsString = responseString.result.value else {
-                    completion(result: schedule)
-                    return
-                }
-                
-                let doc = HTMLDocument(string: htmlAsString)
-                let wrapper = doc.firstNodeMatchingSelector("#wrapper")
-                let channel = wrapper?.nodesMatchingSelector("ul.programs")[Int(channelId)!] as! HTMLElement
-                
-                for row in channel.children {
-                    if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above
-                        if let newSchedule = self.parseHTMLRow(rowElement) {
-                            schedule.append(newSchedule)
-                        }
+        let cache = Shared.stringCache
+        let URL = NSURL(string: requestUrlForDate(date))
+        cache.fetch(URL: URL!).onSuccess { responseString in
+            
+            let doc = HTMLDocument(string: responseString)
+            let wrapper = doc.firstNodeMatchingSelector("#wrapper")
+            let channel = wrapper?.nodesMatchingSelector("ul.programs")[Int(channelId)!] as! HTMLElement
+            
+            for row in channel.children {
+                if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above
+                    if let newSchedule = self.parseHTMLRow(rowElement) {
+                        schedule.append(newSchedule)
                     }
                 }
-                
-                completion(result: schedule)
             }
+            
+            completion(result: schedule)
+        }
     }
     
     private func parseHTMLRow(rowElement: HTMLElement) -> Show? {

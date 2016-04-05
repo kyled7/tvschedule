@@ -7,6 +7,7 @@ target 'TV Schedule' do
 pod 'HTMLReader'
 pod 'Alamofire'
 pod 'SwiftyJSON'
+pod 'HanekeSwift'
 end
 
 target 'TV ScheduleTests' do

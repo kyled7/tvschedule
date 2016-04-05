@@ -9,72 +9,48 @@
 import Foundation
 import Alamofire
 import HTMLReader
+import Haneke
 
 class Vtvcab: ChannelSource {
     let URLString = "http://www.vtvcab.vn/lich-phat-song"
     
     override func fetchSchedule(channelId: String, date: NSDate, completion: (result: [Show]) -> Void) {
         
-        let dayFormat = NSDateFormatter()
-        dayFormat.dateFormat = "dd"
-        let dayString = dayFormat.stringFromDate(date)
-        
-        let monthFormat = NSDateFormatter()
-        monthFormat.dateFormat = "MM"
-        let monthString = monthFormat.stringFromDate(date)
-        
-        let yearFormat = NSDateFormatter()
-        yearFormat.dateFormat = "yyyy"
-        let yearString = yearFormat.stringFromDate(date)
-        
         var schedule: [Show] = []
         
-        Alamofire.request(.GET, URLString, parameters : [
-            "day" : dayString,
-            "month" : monthString,
-            "year" : yearString,
-            "channel" : channelId
-            ])
-            .responseString { responseString in
-                guard responseString.result.error == nil else {
-                    completion(result: schedule)
-                    return
-                }
-                guard let htmlAsString = responseString.result.value else {
-                    completion(result: schedule)
-                    return
-                }
-                
-                let doc = HTMLDocument(string: htmlAsString)
-                
-                // find the table of charts in the HTML
-                let tables = doc.nodesMatchingSelector("table")
-                var scheduleTable:HTMLElement?
-                for table in tables {
-                    if let tableElement = table as? HTMLElement {
-                        if self.isScheduleTable(tableElement) {
-                            scheduleTable = tableElement
-                            break
-                        }
+        let cache = Shared.stringCache
+        let URL = NSURL(string: requestUrlForDate(date, channelId: channelId))
+        cache.fetch(URL: URL!).onSuccess { responseString in
+            let doc = HTMLDocument(string: responseString)
+            
+            // find the table of charts in the HTML
+            let tables = doc.nodesMatchingSelector("table")
+            var scheduleTable:HTMLElement?
+            for table in tables {
+                if let tableElement = table as? HTMLElement {
+                    if self.isScheduleTable(tableElement) {
+                        scheduleTable = tableElement
+                        break
                     }
                 }
-                
-                // make sure we found the table of schedule
-                guard let tableContents = scheduleTable else {
-                    completion(result: schedule)
-                    return
-                }
-                
-                if let bodyTable = tableContents.firstNodeMatchingSelector("tbody") {
-                    for row in bodyTable.children {
-                        if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above
-                            if let newSchedule = self.parseHTMLRow(rowElement) {
-                                schedule.append(newSchedule)
-                            }
-                        }
-                    }
-                }
+            }
+            
+            // make sure we found the table of schedule
+            guard let tableContents = scheduleTable else {
                 completion(result: schedule)
+                return
+            }
+            
+            if let bodyTable = tableContents.firstNodeMatchingSelector("tbody") {
+                for row in bodyTable.children {
+                    if let rowElement = row as? HTMLElement { // TODO: should be able to combine this with loop above
+                        if let newSchedule = self.parseHTMLRow(rowElement) {
+                            schedule.append(newSchedule)
+                        }
+                    }
+                }
+            }
+            completion(result: schedule)
         }
     }
     
@@ -119,5 +95,21 @@ class Vtvcab: ChannelSource {
             }
         }
         return false
+    }
+    
+    private func requestUrlForDate(date: NSDate, channelId: String) -> String {
+        let dayFormat = NSDateFormatter()
+        dayFormat.dateFormat = "dd"
+        let dayString = dayFormat.stringFromDate(date)
+        
+        let monthFormat = NSDateFormatter()
+        monthFormat.dateFormat = "MM"
+        let monthString = monthFormat.stringFromDate(date)
+        
+        let yearFormat = NSDateFormatter()
+        yearFormat.dateFormat = "yyyy"
+        let yearString = yearFormat.stringFromDate(date)
+        
+        return URLString + "?day=" + dayString + "&month=" + monthString + "&year=" + yearString + "&channel=" + channelId
     }
 }
