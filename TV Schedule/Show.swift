@@ -7,12 +7,12 @@
 //
 
 import Foundation
-class Show {
+struct Show {
     let name: String
     let time: String
     let additional: String?
     
-    required init(name: String, time: String, additional:String?) {
+    init(name: String, time: String, additional:String?) {
         self.name = name
         self.time = time
         self.additional = additional

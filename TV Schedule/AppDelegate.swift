@@ -40,6 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func checkAndRequestPermissionForLocalNotification(application: UIApplication) {
+        let currentSetting = application.currentUserNotificationSettings()
+        print(currentSetting)
+        if currentSetting?.types.rawValue == 0 {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: .None))
+        }
+    }
 
 
 }
