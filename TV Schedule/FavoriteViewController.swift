@@ -11,9 +11,8 @@ import UIKit
 class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var favoriteTableView: UITableView!
-    var listFavorite: [Chanel]?
     
-    let userDefaults = NSUserDefaults.standardUserDefaults()
+    var favorites = Favorites.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +23,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let decoded = userDefaults.objectForKey("favorites") as? NSData {
-            listFavorite = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
-        }
         
         self.favoriteTableView.reloadData()
     }
@@ -52,7 +47,7 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("favoriteTableViewCell", forIndexPath: indexPath) as! FavoriteTableViewCell
         
-        let channel = listFavorite![indexPath.row]
+        let channel = favorites.objectAtIndex(indexPath.row)
         
         cell.name.text = channel.name
         cell.channelImage.image = channel.image
@@ -61,12 +56,12 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (listFavorite==nil) ? 0 : (listFavorite?.count)!
+        return favorites.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let scheduleVC = self.storyboard?.instantiateViewControllerWithIdentifier("scheduleVC") as! ScheduleViewController
-        scheduleVC.channel = listFavorite![indexPath.row]
+        scheduleVC.channel = favorites.objectAtIndex(indexPath.row)
         self.showViewController(scheduleVC, sender: nil)
     }
     
@@ -78,11 +73,9 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            listFavorite?.removeAtIndex(indexPath.row)
+            let channel = favorites.objectAtIndex(indexPath.row)
+            favorites.removeItem(channel)
             self.favoriteTableView.reloadData()
-            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(listFavorite!)
-            userDefaults.setObject(encodedData, forKey: "favorites")
-            userDefaults.synchronize()
         }
         
     }

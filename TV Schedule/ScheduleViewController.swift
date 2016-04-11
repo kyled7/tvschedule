@@ -17,8 +17,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var favoriteBarButton: UIBarButtonItem!
     @IBOutlet var dateSC: UISegmentedControl!
     
-    let userDefaults = NSUserDefaults.standardUserDefaults()
-    var favoriteList: [Chanel]?
+    var favorites = Favorites.sharedInstance
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,32 +46,24 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if let decoded = userDefaults.objectForKey("favorites") as? NSData {
-            favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
-            if favoriteList!.contains( { $0.channelId == channel?.channelId}) {
-                self.favoriteBarButton.image = UIImage(named: "tv")
-            } else {
-                self.favoriteBarButton.image = UIImage(named: "favorite")
-            }
+        if favorites.contain(channel!) {
+            self.favoriteBarButton.image = UIImage(named: "favorite_selected")
+        } else {
+            self.favoriteBarButton.image = UIImage(named: "favorite")
         }
     }
 
     @IBAction func favoriteToggle(sender: UIBarButtonItem) {
-        if favoriteList == nil {
-            favoriteList = []
-        }
-        if favoriteList!.contains( { $0.name == channel?.name}) {
+
+        if favorites.contain(channel!) {
             print("remove item from favorite list")
-            favoriteList?.removeAtIndex(favoriteList!.indexOf( {$0.name == channel?.name} )!)
+            favorites.removeItem(channel!)
             self.favoriteBarButton.image = UIImage(named: "favorite")
         } else {
             print("add channel to favorite")
-            favoriteList?.append(channel!)
-            self.favoriteBarButton.image = UIImage(named: "tv")
+            favorites.addItem(channel!)
+            self.favoriteBarButton.image = UIImage(named: "favorite_selected")
         }
-        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(favoriteList!)
-        userDefaults.setObject(encodedData, forKey: "favorites")
-        userDefaults.synchronize()
     }
     
     @IBAction func dateChanged(sender: UISegmentedControl) {
@@ -81,6 +74,9 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         let selectedDate = NSDate(timeIntervalSinceNow: Double(sender.selectedSegmentIndex)*24*60*60)
         self.requestScheduleForDate(selectedDate)
         
+    }
+    @IBAction func notificationToggle(sender: UIButton) {
+        appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
     }
     
     func requestScheduleForDate(date: NSDate) {
