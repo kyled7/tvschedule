@@ -110,7 +110,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 80
     }
     
 

@@ -24,8 +24,12 @@ class Favorites {
     }
     
     init() {
-        let decoded = userDefaults.objectForKey(ITEMS_KEY) as? NSData
-        listFavorite = NSKeyedUnarchiver.unarchiveObjectWithData(decoded!) as? [Chanel] ?? []
+        if let decoded = userDefaults.objectForKey(ITEMS_KEY) as? NSData {
+            listFavorite = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as! [Chanel]
+        } else {
+            listFavorite = []
+        }
+        
     }
     
     func addItem(channel: Chanel) {

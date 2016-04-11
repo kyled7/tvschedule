@@ -9,6 +9,7 @@
 import UIKit
 
 class ScheduleTableViewCell: UITableViewCell {
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var additionalLabel: UILabel!
@@ -16,6 +17,9 @@ class ScheduleTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cellView.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        cellView.layer.borderColor = UIColor(white: 1, alpha: 0.4).CGColor
+        cellView.layer.borderWidth = 1
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -26,6 +26,7 @@
 		7CFB0C621CA19AD200515D95 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB0C611CA19AD200515D95 /* ScheduleTableViewCell.swift */; };
 		7CFB6F531CA981B8001C42D2 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB6F521CA981B8001C42D2 /* FavoriteViewController.swift */; };
 		7CFB6F551CA982EA001C42D2 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB6F541CA982EA001C42D2 /* FavoriteTableViewCell.swift */; };
+		7CFF00DD1CB6C18500753279 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFF00DC1CB6C18500753279 /* MainTabBarViewController.swift */; };
 		B2AD83816F1533BB5E240EF3 /* Pods_TV_Schedule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F9E9C1C6F7F244FC488CF73 /* Pods_TV_Schedule.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		7CFB0C611CA19AD200515D95 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		7CFB6F521CA981B8001C42D2 /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		7CFB6F541CA982EA001C42D2 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		7CFF00DC1CB6C18500753279 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		B123F3C8F25BDB2343EEA187 /* Pods-TV Schedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TV Schedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-TV Schedule/Pods-TV Schedule.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +177,7 @@
 				7C591F851C9D28A700F465F8 /* ListViewController.swift */,
 				7CFB0C5D1C9E74E100515D95 /* ScheduleViewController.swift */,
 				7CFB6F521CA981B8001C42D2 /* FavoriteViewController.swift */,
+				7CFF00DC1CB6C18500753279 /* MainTabBarViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				7C591F861C9D28A700F465F8 /* ListViewController.swift in Sources */,
 				385797621CB7C51700BAAE15 /* Notification.swift in Sources */,
 				7CFB0C5E1C9E74E100515D95 /* ScheduleViewController.swift in Sources */,
+				7CFF00DD1CB6C18500753279 /* MainTabBarViewController.swift in Sources */,
 				7CFB6F531CA981B8001C42D2 /* FavoriteViewController.swift in Sources */,
 				7C591F541C9C196A00F465F8 /* AppDelegate.swift in Sources */,
 				385797A11CBBC14400BAAE15 /* Favorites.swift in Sources */,
@@ -551,6 +555,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "TV Schedule/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kyledinh.TV-Schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -566,6 +571,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "TV Schedule/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "kyledinh.TV-Schedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -23,7 +23,6 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.favoriteTableView.reloadData()
     }
 
@@ -80,4 +79,8 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
 
+}
+
+class FavoriteNavigationController: UINavigationController {
+    
 }

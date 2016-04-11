@@ -46,6 +46,9 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("listCollectionViewCell", forIndexPath: indexPath) as! ListCollectionViewCell
+        cell.backgroundColor = UIColor(white: 1, alpha: 0.3)
+        cell.layer.borderColor = UIColor(white: 1, alpha: 0.5).CGColor
+        cell.layer.borderWidth = 1
         
         let channel = listChannel![indexPath.row]
         
@@ -59,6 +62,17 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         let scheduleVC = self.storyboard?.instantiateViewControllerWithIdentifier("scheduleVC") as! ScheduleViewController
         scheduleVC.channel = listChannel![indexPath.row]
         self.showViewController(scheduleVC, sender: nil)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        print(UIScreen.mainScreen().bounds.width)
+        let maxCellWidth = 160
+        let numberCells = Int(UIScreen.mainScreen().bounds.width/CGFloat(maxCellWidth))
+        print(numberCells)
+        
+        let actualCellWidth = CGFloat(Int((UIScreen.mainScreen().bounds.width - CGFloat(numberCells+1)*10) / CGFloat(numberCells)))
+        print(actualCellWidth)
+        return CGSizeMake(actualCellWidth, actualCellWidth)
     }
     
 
