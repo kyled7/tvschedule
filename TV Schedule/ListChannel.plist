@@ -4,11 +4,91 @@
 <array>
 	<dict>
 		<key>name</key>
-		<string>VTV1</string>
+		<string>VTV1 HD</string>
 		<key>image</key>
 		<string>vtv1</string>
 		<key>channelId</key>
 		<string>0</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV2</string>
+		<key>image</key>
+		<string>vtv2</string>
+		<key>channelId</key>
+		<string>1</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV3 HD</string>
+		<key>image</key>
+		<string>vtv3</string>
+		<key>channelId</key>
+		<string>2</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV4</string>
+		<key>image</key>
+		<string>vtv4</string>
+		<key>channelId</key>
+		<string>3</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV5</string>
+		<key>image</key>
+		<string>vtv5</string>
+		<key>channelId</key>
+		<string>4</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV6 HD</string>
+		<key>image</key>
+		<string>vtv6</string>
+		<key>channelId</key>
+		<string>5</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV7</string>
+		<key>image</key>
+		<string>vtv7</string>
+		<key>channelId</key>
+		<string>6</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV8</string>
+		<key>image</key>
+		<string>vtv8</string>
+		<key>channelId</key>
+		<string>7</string>
+		<key>source</key>
+		<string>Vtv</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTV9</string>
+		<key>image</key>
+		<string>vtv9</string>
+		<key>channelId</key>
+		<string>8</string>
 		<key>source</key>
 		<string>Vtv</string>
 	</dict>
@@ -29,6 +109,366 @@
 		<string>vtvcab2</string>
 		<key>channelId</key>
 		<string>4077</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 3 - Thể Thao TV</string>
+		<key>image</key>
+		<string>vtvcab3</string>
+		<key>channelId</key>
+		<string>226</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 4 - Văn hóa</string>
+		<key>image</key>
+		<string>vtvcab4</string>
+		<key>channelId</key>
+		<string>227</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 5 - E Channel</string>
+		<key>image</key>
+		<string>vtvcab5</string>
+		<key>channelId</key>
+		<string>228</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 6 - Hay TV</string>
+		<key>image</key>
+		<string>vtvcab6</string>
+		<key>channelId</key>
+		<string>229</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 7 - D Drama</string>
+		<key>image</key>
+		<string>vtvcab7</string>
+		<key>channelId</key>
+		<string>232</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 8 - BiBi</string>
+		<key>image</key>
+		<string>vtvcab8</string>
+		<key>channelId</key>
+		<string>4068</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 9 - InfoTV</string>
+		<key>image</key>
+		<string>vtvcab9</string>
+		<key>channelId</key>
+		<string>4291</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 10 - O2TV</string>
+		<key>image</key>
+		<string>vtvcab10</string>
+		<key>channelId</key>
+		<string>4069</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 12 - Style TV HD</string>
+		<key>image</key>
+		<string>vtvcab12</string>
+		<key>channelId</key>
+		<string>4079</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 15 - M Channel</string>
+		<key>image</key>
+		<string>vtvcab15</string>
+		<key>channelId</key>
+		<string>355</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 16 - Bóng đá TV</string>
+		<key>image</key>
+		<string>vtvcab16</string>
+		<key>channelId</key>
+		<string>4080</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 17 - Yeah1 TV</string>
+		<key>image</key>
+		<string>vtvcab17</string>
+		<key>channelId</key>
+		<string>4070</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 18 - Thể thao Tin tức HD</string>
+		<key>image</key>
+		<string>vtvcab18</string>
+		<key>channelId</key>
+		<string>16732</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 19 - Kênh Phim</string>
+		<key>image</key>
+		<string>vtvcab19</string>
+		<key>channelId</key>
+		<string>4071</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>VTVcab 20 - V Family</string>
+		<key>image</key>
+		<string>vtvcab20</string>
+		<key>channelId</key>
+		<string>17134</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Thể thao TV HD</string>
+		<key>image</key>
+		<string>thethaotvhd</string>
+		<key>channelId</key>
+		<string>4078</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Bóng đá TV HD</string>
+		<key>image</key>
+		<string>bongdatvhd</string>
+		<key>channelId</key>
+		<string>4710</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>K+PC</string>
+		<key>image</key>
+		<string>k+pc</string>
+		<key>channelId</key>
+		<string>4076</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>K+PM HD</string>
+		<key>image</key>
+		<string>k+pmhd</string>
+		<key>channelId</key>
+		<string>4075</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>K+1 HD</string>
+		<key>image</key>
+		<string>k+1hd</string>
+		<key>channelId</key>
+		<string>4074</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>K+NS HD</string>
+		<key>image</key>
+		<string>k+nshd</string>
+		<key>channelId</key>
+		<string>4064</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>FOX Sports HD</string>
+		<key>image</key>
+		<string>foxsportshd</string>
+		<key>channelId</key>
+		<string>4706</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>FOX Sports 2 HD</string>
+		<key>image</key>
+		<string>foxsports2hd</string>
+		<key>channelId</key>
+		<string>4705</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Starmovies HD</string>
+		<key>image</key>
+		<string>starmovieshd</string>
+		<key>channelId</key>
+		<string>4703</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Cinema World HD</string>
+		<key>image</key>
+		<string>cinemaworldhd</string>
+		<key>channelId</key>
+		<string>4701</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Warner TV HD</string>
+		<key>image</key>
+		<string>warnertvhd</string>
+		<key>channelId</key>
+		<string>4707</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Gem TV HD</string>
+		<key>image</key>
+		<string>gemtvhd</string>
+		<key>channelId</key>
+		<string>4700</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>AXN HD</string>
+		<key>image</key>
+		<string>axnhd</string>
+		<key>channelId</key>
+		<string>4699</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Catoon Network HD</string>
+		<key>image</key>
+		<string>cnhd</string>
+		<key>channelId</key>
+		<string>4678</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>FOX Sports</string>
+		<key>image</key>
+		<string>foxsports</string>
+		<key>channelId</key>
+		<string>4098</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>FOX Sports 2</string>
+		<key>image</key>
+		<string>foxsports2</string>
+		<key>channelId</key>
+		<string>4099</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Cinemax</string>
+		<key>image</key>
+		<string>cinemax</string>
+		<key>channelId</key>
+		<string>4100</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Screen Red</string>
+		<key>image</key>
+		<string>screenred</string>
+		<key>channelId</key>
+		<string>4101</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Animal Planet</string>
+		<key>image</key>
+		<string>animalplanet</string>
+		<key>channelId</key>
+		<string>4107</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Disney Channel</string>
+		<key>image</key>
+		<string>disneychannel</string>
+		<key>channelId</key>
+		<string>4108</string>
+		<key>source</key>
+		<string>Vtvcab</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Disney Junior</string>
+		<key>image</key>
+		<string>disneyjunior</string>
+		<key>channelId</key>
+		<string>4109</string>
 		<key>source</key>
 		<string>Vtvcab</string>
 	</dict>

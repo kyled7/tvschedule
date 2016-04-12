@@ -269,31 +269,31 @@
                                     <action selector="dateChanged:" destination="zTe-Z3-Ye9" eventType="valueChanged" id="GYs-ah-W5E"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7IN-YI-EBY">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7IN-YI-EBY">
                                 <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="scheduleTableViewCell" id="Ztn-8k-vIL" customClass="ScheduleTableViewCell" customModule="TV_Schedule" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ztn-8k-vIL" id="vBE-ja-bK8">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mw9-mS-HND">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EmK-vR-slD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="95"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="v5D-PO-Wux">
-                                                            <rect key="frame" x="158" y="0.0" width="442" height="40"/>
+                                                            <rect key="frame" x="172" y="0.0" width="428" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="ALO-Vf-eU9"/>
                                                             </constraints>
@@ -302,21 +302,30 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="dBW-8h-szN">
-                                                            <rect key="frame" x="158" y="40" width="442" height="50"/>
+                                                            <rect key="frame" x="172" y="40" width="428" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeline_dot" translatesAutoresizingMaskIntoConstraints="NO" id="FB8-Ah-RXh">
+                                                            <rect key="frame" x="150" y="0.0" width="14" height="80"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="14" id="jc5-LJ-tXS"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="FB8-Ah-RXh" secondAttribute="bottom" constant="-5" id="0TG-r4-pMn"/>
+                                                        <constraint firstItem="dBW-8h-szN" firstAttribute="leading" secondItem="FB8-Ah-RXh" secondAttribute="trailing" constant="8" id="1Ff-u9-NVQ"/>
+                                                        <constraint firstItem="FB8-Ah-RXh" firstAttribute="top" secondItem="Mw9-mS-HND" secondAttribute="top" id="54x-Kt-n3K"/>
                                                         <constraint firstAttribute="trailing" secondItem="v5D-PO-Wux" secondAttribute="trailing" id="Hgd-HO-17J"/>
                                                         <constraint firstAttribute="bottom" secondItem="dBW-8h-szN" secondAttribute="bottom" constant="5" id="OIa-QK-4Zt"/>
                                                         <constraint firstItem="dBW-8h-szN" firstAttribute="top" secondItem="v5D-PO-Wux" secondAttribute="bottom" id="Xwq-4s-Gtd"/>
-                                                        <constraint firstItem="dBW-8h-szN" firstAttribute="leading" secondItem="EmK-vR-slD" secondAttribute="trailing" constant="8" id="ZQ2-SY-Hn7"/>
+                                                        <constraint firstItem="v5D-PO-Wux" firstAttribute="leading" secondItem="FB8-Ah-RXh" secondAttribute="trailing" constant="8" id="adm-Q8-Qbs"/>
                                                         <constraint firstItem="EmK-vR-slD" firstAttribute="top" secondItem="Mw9-mS-HND" secondAttribute="top" id="aqJ-V8-el0"/>
+                                                        <constraint firstItem="FB8-Ah-RXh" firstAttribute="leading" secondItem="EmK-vR-slD" secondAttribute="trailing" id="ayX-w3-h2z"/>
                                                         <constraint firstItem="v5D-PO-Wux" firstAttribute="top" secondItem="Mw9-mS-HND" secondAttribute="top" id="g4A-qV-wkk"/>
-                                                        <constraint firstItem="v5D-PO-Wux" firstAttribute="leading" secondItem="EmK-vR-slD" secondAttribute="trailing" constant="8" id="mr1-qn-Ff8"/>
                                                         <constraint firstAttribute="trailing" secondItem="dBW-8h-szN" secondAttribute="trailing" id="nRW-Of-orT"/>
                                                         <constraint firstItem="EmK-vR-slD" firstAttribute="width" secondItem="Mw9-mS-HND" secondAttribute="width" multiplier="1:4" id="s8q-iA-KyF"/>
                                                         <constraint firstItem="EmK-vR-slD" firstAttribute="leading" secondItem="Mw9-mS-HND" secondAttribute="leading" id="trY-rs-Gas"/>
@@ -414,6 +423,7 @@
     <resources>
         <image name="background" width="1040" height="1526"/>
         <image name="favorite" width="24" height="22"/>
+        <image name="timeline_dot" width="14" height="80"/>
         <image name="tv" width="29" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>

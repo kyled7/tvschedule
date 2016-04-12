@@ -57,5 +57,6 @@ class Favorites {
         let encodedData = NSKeyedArchiver.archivedDataWithRootObject(listFavorite)
         userDefaults.setObject(encodedData, forKey: ITEMS_KEY)
         userDefaults.synchronize()
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "updateBadge", object: nil))
     }
 }

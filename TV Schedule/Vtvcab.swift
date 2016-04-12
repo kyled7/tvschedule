@@ -59,22 +59,27 @@ class Vtvcab: ChannelSource {
         var time: String?
         var additional: String?
         
+        if rowElement.childElementNodes.count == 1 {
+            return nil
+        }
+        
+        
         //first column: show time
-        if let firstColumn = rowElement.childAtIndex(1) as? HTMLElement {
+        if let firstColumn = rowElement.childElementNodes[0] as? HTMLElement {
             time = firstColumn.textContent
                 .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 .stringByReplacingOccurrencesOfString("\n", withString: "")
         }
         
         //second column: show name
-        if let secondColumn = rowElement.childAtIndex(3) as? HTMLElement {
+        if let secondColumn = rowElement.childElementNodes[1] as? HTMLElement {
             name = secondColumn.textContent
                 .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 .stringByReplacingOccurrencesOfString("\n", withString: "")
         }
         
         //Third column: show additional info
-        if let thirdColumn = rowElement.childAtIndex(5) as? HTMLElement {
+        if let thirdColumn = rowElement.childElementNodes[2] as? HTMLElement {
             additional = thirdColumn.textContent
                 .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 .stringByReplacingOccurrencesOfString("\n", withString: "")

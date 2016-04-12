@@ -15,13 +15,16 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let decoded = userDefaults.objectForKey("favorites") as? NSData {
-            let favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? [Chanel]
-            if favoriteList?.count == 0 {
-                tabBar.items?[1].badgeValue = nil
-            } else {
-                tabBar.items?[1].badgeValue = "\(favoriteList!.count)"
-            }
+        updateBadge()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarViewController.updateBadge), name: "updateBadge", object: nil)
+    }
+    
+    func updateBadge() {
+        let favoriteCount = Favorites.sharedInstance.count
+        if favoriteCount == 0 {
+            tabBar.items?[1].badgeValue = nil
+        } else {
+            tabBar.items?[1].badgeValue = "\(favoriteCount)"
         }
     }
 

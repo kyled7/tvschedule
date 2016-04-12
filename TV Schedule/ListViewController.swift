@@ -65,13 +65,10 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        print(UIScreen.mainScreen().bounds.width)
         let maxCellWidth = 160
         let numberCells = Int(UIScreen.mainScreen().bounds.width/CGFloat(maxCellWidth))
-        print(numberCells)
         
         let actualCellWidth = CGFloat(Int((UIScreen.mainScreen().bounds.width - CGFloat(numberCells+1)*10) / CGFloat(numberCells)))
-        print(actualCellWidth)
         return CGSizeMake(actualCellWidth, actualCellWidth)
     }
     
