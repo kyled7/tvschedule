@@ -8,34 +8,53 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var listCollectionView: UICollectionView!
     @IBOutlet weak var channelSearchBar: UISearchBar!
     
-    var listChannel: [Chanel]?
+    var listChannel, allChannel: [Chanel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.title = "Danh sách kênh"
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ListViewController.hideKeyboard))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.listChannel = []
+        self.allChannel = []
         if let path = NSBundle.mainBundle().pathForResource("ListChannel", ofType: "plist") {
             let list = NSArray(contentsOfFile: path)
             for item: NSDictionary in list as! [NSDictionary] {
-                self.listChannel?.append(Chanel(dict: item))
+                self.allChannel?.append(Chanel(dict: item))
             }
         }
+        listChannel = allChannel
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func hideKeyboard() {
+        if channelSearchBar.isFirstResponder() {
+            channelSearchBar.resignFirstResponder()
+//            channelSearchBar.showsCancelButton = false
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if channelSearchBar.isFirstResponder() {
+            return true
+        }
+        return false
     }
     
     
@@ -70,6 +89,27 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         let actualCellWidth = CGFloat(Int((UIScreen.mainScreen().bounds.width - CGFloat(numberCells+1)*10) / CGFloat(numberCells)))
         return CGSizeMake(actualCellWidth, actualCellWidth)
+    }
+    
+    // MARK: - UISearchbarDelegate
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if searchBar.text == "" {
+            listChannel = allChannel
+        } else {
+            listChannel = allChannel?.filter({ $0.name?.lowercaseString.rangeOfString((searchBar.text?.lowercaseString)!) != nil })
+        }
+        searchBar.resignFirstResponder()
+        listCollectionView.reloadData()
+    }
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        listChannel = allChannel
+        listCollectionView.reloadData()
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
     }
     
 

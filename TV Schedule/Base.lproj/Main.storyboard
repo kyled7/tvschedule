@@ -48,7 +48,7 @@
                                 <rect key="frame" x="0.0" y="-8" width="600" height="608"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="v66-mb-cI2">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fjT-cp-8HA">
                                     <size key="itemSize" width="150" height="150"/>
@@ -109,21 +109,39 @@
                                     <outlet property="delegate" destination="zY1-CM-yOF" id="1bz-3u-LK1"/>
                                 </connections>
                             </collectionView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Tìm kiếm" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-CT-IfE">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="searchField.textColor">
+                                        <color key="value" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="zY1-CM-yOF" id="Osr-Bn-UFU"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="JNI-IZ-T0M" firstAttribute="topMargin" secondItem="z4i-Ul-JXp" secondAttribute="bottom" constant="-64" id="48c-Al-ccA"/>
+                            <constraint firstItem="Oyq-CT-IfE" firstAttribute="width" secondItem="Ddk-BG-M7M" secondAttribute="width" id="7JR-fn-lgb"/>
                             <constraint firstItem="JNI-IZ-T0M" firstAttribute="leading" secondItem="Ddk-BG-M7M" secondAttribute="leading" id="ESZ-Qo-CtG"/>
+                            <constraint firstItem="v66-mb-cI2" firstAttribute="top" secondItem="Oyq-CT-IfE" secondAttribute="bottom" id="FCW-R9-vyB"/>
                             <constraint firstAttribute="trailing" secondItem="JNI-IZ-T0M" secondAttribute="trailing" id="GIz-R0-BLf"/>
                             <constraint firstAttribute="bottom" secondItem="JNI-IZ-T0M" secondAttribute="bottom" id="Q6b-g5-hCk"/>
                             <constraint firstItem="v66-mb-cI2" firstAttribute="leading" secondItem="Ddk-BG-M7M" secondAttribute="leading" id="ROF-1T-et7"/>
+                            <constraint firstItem="Oyq-CT-IfE" firstAttribute="centerX" secondItem="Ddk-BG-M7M" secondAttribute="centerX" id="b6y-B9-TEQ"/>
                             <constraint firstAttribute="trailing" secondItem="v66-mb-cI2" secondAttribute="trailing" id="bOA-I7-I7O"/>
-                            <constraint firstItem="v66-mb-cI2" firstAttribute="top" secondItem="z4i-Ul-JXp" secondAttribute="bottom" id="nXe-Ub-TVG"/>
+                            <constraint firstItem="Oyq-CT-IfE" firstAttribute="top" secondItem="z4i-Ul-JXp" secondAttribute="bottom" id="fzn-eM-Nj6"/>
                             <constraint firstItem="efE-6K-zz9" firstAttribute="top" secondItem="v66-mb-cI2" secondAttribute="bottom" id="xeo-Es-dfG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JLW-mT-GEB"/>
                     <connections>
+                        <outlet property="channelSearchBar" destination="Oyq-CT-IfE" id="Kj5-Cb-iys"/>
                         <outlet property="listCollectionView" destination="v66-mb-cI2" id="z5e-hQ-6H2"/>
                         <segue destination="zTe-Z3-Ye9" kind="show" id="KR5-GV-Nin"/>
                     </connections>
@@ -427,6 +445,6 @@
         <image name="tv" width="29" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lGs-aY-AYK"/>
+        <segue reference="KR5-GV-Nin"/>
     </inferredMetricsTieBreakers>
 </document>
