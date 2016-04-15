@@ -111,6 +111,9 @@
                             </collectionView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Tìm kiếm" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-CT-IfE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2cq-AY-X3q"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
@@ -135,7 +138,7 @@
                             <constraint firstItem="v66-mb-cI2" firstAttribute="leading" secondItem="Ddk-BG-M7M" secondAttribute="leading" id="ROF-1T-et7"/>
                             <constraint firstItem="Oyq-CT-IfE" firstAttribute="centerX" secondItem="Ddk-BG-M7M" secondAttribute="centerX" id="b6y-B9-TEQ"/>
                             <constraint firstAttribute="trailing" secondItem="v66-mb-cI2" secondAttribute="trailing" id="bOA-I7-I7O"/>
-                            <constraint firstItem="Oyq-CT-IfE" firstAttribute="top" secondItem="z4i-Ul-JXp" secondAttribute="bottom" id="fzn-eM-Nj6"/>
+                            <constraint firstItem="Oyq-CT-IfE" firstAttribute="top" secondItem="z4i-Ul-JXp" secondAttribute="bottom" identifier="$seachbarTopHeight$" id="fzn-eM-Nj6"/>
                             <constraint firstItem="efE-6K-zz9" firstAttribute="top" secondItem="v66-mb-cI2" secondAttribute="bottom" id="xeo-Es-dfG"/>
                         </constraints>
                     </view>

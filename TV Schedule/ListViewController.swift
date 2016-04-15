@@ -50,6 +50,26 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
+    func toggleSearchbar(display: Bool) {
+        guard let constraint = channelSearchBar.constraints.filter({ $0.firstAttribute == .Height }).first else {
+            return
+        }
+        print(constraint)
+        var constant: CGFloat
+        
+        if display {
+            constant = 44
+        } else {
+            constant = 0
+        }
+        
+        UIView.animateWithDuration(0.5, animations: {
+            constraint.constant = constant
+            self.view.setNeedsLayout()
+//            self.view.layoutIfNeeded()
+        })
+    }
+    
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         if channelSearchBar.isFirstResponder() {
             return true
@@ -89,6 +109,15 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         let actualCellWidth = CGFloat(Int((UIScreen.mainScreen().bounds.width - CGFloat(numberCells+1)*10) / CGFloat(numberCells)))
         return CGSizeMake(actualCellWidth, actualCellWidth)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let scrollVelocity = scrollView.panGestureRecognizer.velocityInView(scrollView.superview)
+        if scrollVelocity.y > 0 {
+            toggleSearchbar(true)
+        } else {
+            toggleSearchbar(false)
+        }
     }
     
     // MARK: - UISearchbarDelegate
