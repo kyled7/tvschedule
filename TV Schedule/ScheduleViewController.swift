@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ScheduleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
     
     var channel: Chanel?
 
@@ -39,7 +39,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = channel?.name
+        self.navigationController!.navigationBar.topItem?.title = channel?.name
         
         self.requestScheduleForDate(NSDate())
     }
@@ -78,6 +78,40 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func notificationToggle(sender: UIButton) {
         appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
     }
+    @IBAction func showAlarmPopover(sender: UIButton) {
+        appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
+        let alarmPopoverVC = self.storyboard?.instantiateViewControllerWithIdentifier("alarmPopover") as! AlarmPopoverViewController
+        alarmPopoverVC.modalPresentationStyle = .Popover
+        alarmPopoverVC.preferredContentSize = CGSize(width: 150, height: 50)
+        alarmPopoverVC.popoverPresentationController?.permittedArrowDirections = .Up
+        alarmPopoverVC.popoverPresentationController?.delegate = self
+        alarmPopoverVC.popoverPresentationController?.sourceRect = CGRect(
+            x: 0,
+            y: 7,
+            width: 1,
+            height: 1)
+        alarmPopoverVC.popoverPresentationController?.sourceView = sender
+        
+        let btnPos: CGPoint = sender.convertPoint(CGPointZero, toView: scheduleTableView)
+        let indexPath: NSIndexPath = scheduleTableView.indexPathForRowAtPoint(btnPos)!
+        let show = channel?.schedule![indexPath.row]
+        
+        let selectedDate = NSDate(timeIntervalSinceNow: Double(dateSC.selectedSegmentIndex)*24*60*60)
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "dd-MM-yyyy"
+        let showTimeFormat = NSDateFormatter()
+        showTimeFormat.dateFormat = "dd-MM-yyyy HH:mm"
+        let showTime = showTimeFormat.dateFromString(dateFormat.stringFromDate(selectedDate) + " " + (show?.time)!)
+        
+        var showName = show?.name ?? ""
+        if show?.additional != nil && show?.additional != "" {
+            showName.appendContentsOf("\n(\(show!.additional!))")
+        }
+        
+        let notificationItem = NotificationItem(showTime: showTime!, showName: showName, channel: channel!, UUID: NSUUID().UUIDString)
+        alarmPopoverVC.notificationItem = notificationItem
+        presentViewController(alarmPopoverVC, animated: true, completion: nil)
+    }
     
     func requestScheduleForDate(date: NSDate) {
         
@@ -111,6 +145,10 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 80
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
     
 

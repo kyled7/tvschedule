@@ -19,7 +19,7 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "Danh sách kênh"
+        self.navigationController!.navigationBar.topItem?.title = "Danh sách kênh"
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ListViewController.hideKeyboard))
         tapGesture.delegate = self
@@ -90,6 +90,7 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         let actualCellWidth = CGFloat(Int((UIScreen.mainScreen().bounds.width - CGFloat(numberCells+1)*10) / CGFloat(numberCells)))
         return CGSizeMake(actualCellWidth, actualCellWidth)
     }
+    
     
     // MARK: - UISearchbarDelegate
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {

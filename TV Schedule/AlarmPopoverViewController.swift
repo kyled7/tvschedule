@@ -1,34 +1,21 @@
 //
-//  MainTabBarViewController.swift
+//  AlarmPopoverViewController.swift
 //  TV Schedule
 //
-//  Created by Kyle Dinh on 4/7/16.
+//  Created by Kyle Dinh on 4/14/16.
 //  Copyright © 2016 Kyle Dinh. All rights reserved.
 //
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
-    let userDefaults = NSUserDefaults.standardUserDefaults()
+class AlarmPopoverViewController: UIViewController {
     
+    var notificationItem: NotificationItem?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        updateBadge()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTabBarViewController.updateBadge), name: "updateBadge", object: nil)
-    }
-    
-    func updateBadge() {
-        let favoriteCount = Favorites.sharedInstance.count
-        if favoriteCount == 0 {
-            tabBar.items?[1].badgeValue = nil
-        } else {
-            tabBar.items?[1].badgeValue = "\(favoriteCount)"
-        }
-        
-        let notificationCount = NotificationList.sharedInstance.count
-        print(notificationCount)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +24,10 @@ class MainTabBarViewController: UITabBarController {
     }
     
 
+    @IBAction func confirmAlarm(sender: UIButton) {
+        NotificationList.sharedInstance.addItem(notificationItem!)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

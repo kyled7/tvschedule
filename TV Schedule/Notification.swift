@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct NotificationItem {
+class NotificationItem: NSObject, NSCoding {
     var showTime : NSDate
     var showName: String
     var channel: Chanel
@@ -20,6 +20,22 @@ struct NotificationItem {
         self.showName = showName
         self.channel = channel
         self.UUID = UUID
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let showTime = aDecoder.decodeObjectForKey("showTime") as! NSDate
+        let showName = aDecoder.decodeObjectForKey("showName") as! String
+        let channel = aDecoder.decodeObjectForKey("channel") as! Chanel
+        let UUID = aDecoder.decodeObjectForKey("UUID") as! String
+        self.init(showTime: showTime, showName: showName, channel: channel, UUID: UUID)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(showTime, forKey: "showTime")
+        aCoder.encodeObject(showName, forKey: "showName")
+        aCoder.encodeObject(channel, forKey: "channel")
+        aCoder.encodeObject(UUID, forKey: "UUID")
+        
     }
     
     var isOverdue: Bool {
@@ -37,17 +53,29 @@ class NotificationList {
     }
     
     private let ITEMS_KEY = "notificationShows"
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    var list : [String: NotificationItem]
+    var count: Int {
+        return list.count
+    }
+    
+    init() {
+        if let decoded = userDefaults.objectForKey(ITEMS_KEY) as? NSData {
+            list = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as! [String: NotificationItem]
+        } else {
+            list = [:]
+        }
+        
+    }
     
     func addItem(item: NotificationItem) {
-        var notificationDictionary = NSUserDefaults.standardUserDefaults().dictionaryForKey(ITEMS_KEY) ?? Dictionary()
-        
-        notificationDictionary[item.UUID] = ["showTime": item.showTime, "showName": item.showName, "channel": item.channel, "UUID": item.UUID]
-        NSUserDefaults.standardUserDefaults().setObject(notificationDictionary, forKey: ITEMS_KEY)
+        list[item.UUID] = item
+        save()
         
         let notification = UILocalNotification()
-        notification.alertBody = "ĐỪNG BỎ LỠ!!! \n Đón xem chương trình \(item.showName) sắp được chiếu trên kênh \(item.channel.name)"
+        notification.alertBody = "ĐỪNG BỎ LỠ!!! \nĐón xem chương trình \(item.showName) sắp được chiếu trên kênh \(item.channel.name!)"
         notification.alertAction = "open"
-        notification.fireDate = item.showTime.dateByAddingTimeInterval(-60*10)
+        notification.fireDate = item.showTime.dateByAddingTimeInterval(-60*5)
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.userInfo = ["UUID": item.UUID, ]
         notification.category = "TVSHOW_CATEGORY"
@@ -62,9 +90,18 @@ class NotificationList {
             }
         }
         
-        if var notificationItems = NSUserDefaults.standardUserDefaults().dictionaryForKey(ITEMS_KEY) {
-            notificationItems.removeValueForKey(item.UUID)
-            NSUserDefaults.standardUserDefaults().setObject(notificationItems, forKey: ITEMS_KEY)
-        }
+        list.removeValueForKey(item.UUID)
+        save()
+    }
+    
+    func objectAtIndex(index: Int) -> NotificationItem {
+        return Array(list.values).sort({$0.showTime.timeIntervalSinceNow < $1.showTime.timeIntervalSinceNow})[index]
+    }
+    
+    private func save() {
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(list)
+        userDefaults.setObject(encodedData, forKey: ITEMS_KEY)
+        userDefaults.synchronize()
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "updateBadge", object: nil))
     }
 }
