@@ -98,6 +98,14 @@ class NotificationList {
         return Array(list.values).sort({$0.showTime.timeIntervalSinceNow < $1.showTime.timeIntervalSinceNow})[index]
     }
     
+    func refreshNotificationList() {
+        for (key, item) in list {
+            if item.isOverdue {
+                list.removeValueForKey(key)
+            }
+        }
+    }
+    
     private func save() {
         let encodedData = NSKeyedArchiver.archivedDataWithRootObject(list)
         userDefaults.setObject(encodedData, forKey: ITEMS_KEY)

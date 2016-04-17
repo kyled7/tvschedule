@@ -28,7 +28,11 @@ class MainTabBarViewController: UITabBarController {
         }
         
         let notificationCount = NotificationList.sharedInstance.count
-        print(notificationCount)
+        if notificationCount == 0 {
+            tabBar.items?[2].badgeValue = nil
+        } else {
+            tabBar.items?[2].badgeValue = "\(notificationCount)"
+        }
     }
 
     override func didReceiveMemoryWarning() {

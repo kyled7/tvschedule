@@ -9,6 +9,7 @@
 import UIKit
 
 class ListViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate {
+    @IBOutlet weak var searchBarHeight: NSLayoutConstraint!
 
     @IBOutlet weak var listCollectionView: UICollectionView!
     @IBOutlet weak var channelSearchBar: UISearchBar!
@@ -51,10 +52,6 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func toggleSearchbar(display: Bool) {
-        guard let constraint = channelSearchBar.constraints.filter({ $0.firstAttribute == .Height }).first else {
-            return
-        }
-        print(constraint)
         var constant: CGFloat
         
         if display {
@@ -64,9 +61,8 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         
         UIView.animateWithDuration(0.5, animations: {
-            constraint.constant = constant
-            self.view.setNeedsLayout()
-//            self.view.layoutIfNeeded()
+            self.searchBarHeight.constant = constant
+            self.view.layoutIfNeeded()
         })
     }
     
@@ -111,11 +107,13 @@ class ListViewController: UIViewController, UICollectionViewDataSource, UICollec
         return CGSizeMake(actualCellWidth, actualCellWidth)
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        hideKeyboard()
         let scrollVelocity = scrollView.panGestureRecognizer.velocityInView(scrollView.superview)
-        if scrollVelocity.y > 0 {
+        let height = self.searchBarHeight.constant
+        if scrollVelocity.y > 0 && height == 0 {
             toggleSearchbar(true)
-        } else {
+        } else if scrollVelocity.y < 0 && height > 0 {
             toggleSearchbar(false)
         }
     }

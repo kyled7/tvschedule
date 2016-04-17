@@ -19,8 +19,6 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var favorites = Favorites.sharedInstance
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,11 +33,11 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         self.dateSC.setTitle(tomorowString, forSegmentAtIndex: 1)
         self.dateSC.setTitle(twoDaysString, forSegmentAtIndex: 2)
         
+        self.title = channel?.name
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController!.navigationBar.topItem?.title = channel?.name
         
         self.requestScheduleForDate(NSDate())
     }
@@ -75,11 +73,7 @@ class ScheduleViewController: UIViewController, UITableViewDataSource, UITableVi
         self.requestScheduleForDate(selectedDate)
         
     }
-    @IBAction func notificationToggle(sender: UIButton) {
-        appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
-    }
     @IBAction func showAlarmPopover(sender: UIButton) {
-        appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
         let alarmPopoverVC = self.storyboard?.instantiateViewControllerWithIdentifier("alarmPopover") as! AlarmPopoverViewController
         alarmPopoverVC.modalPresentationStyle = .Popover
         alarmPopoverVC.preferredContentSize = CGSize(width: 150, height: 50)

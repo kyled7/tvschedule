@@ -64,7 +64,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return true
     }
     func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
-        return "Huỷ thông báo"
+        return "Huỷ"
     }
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {

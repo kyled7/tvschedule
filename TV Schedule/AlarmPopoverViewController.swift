@@ -11,6 +11,7 @@ import UIKit
 class AlarmPopoverViewController: UIViewController {
     
     var notificationItem: NotificationItem?
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class AlarmPopoverViewController: UIViewController {
     
 
     @IBAction func confirmAlarm(sender: UIButton) {
+        appDelegate.checkAndRequestPermissionForLocalNotification(UIApplication.sharedApplication())
         NotificationList.sharedInstance.addItem(notificationItem!)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
